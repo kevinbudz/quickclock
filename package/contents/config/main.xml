@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+
+  <group name="Appearance">
+    <entry name="formatPreset" type="String">
+      <label>Active preset: plasma, pear, or custom.</label>
+      <default>plasma</default>
+    </entry>
+    <entry name="customFormat" type="String">
+      <label>Custom multiline format with date/time tokens and BBCode.</label>
+      <default>[center]hh:mm AP&#10;M/d/yyyy[/center]</default>
+    </entry>
+    <entry name="customFormatEdited" type="Bool">
+      <label>Whether the user has edited the custom format since the last preset switch.</label>
+      <default>false</default>
+    </entry>
+    <entry name="lastPresetFormat" type="String">
+      <label>Template copied into custom when switching to the custom preset.</label>
+      <default>[center]hh:m AP&#10;M/d/yyyy[/center]</default>
+    </entry>
+    <entry name="use24hFormat" type="UInt">
+      <label>12-hour, locale default, or 24-hour time. 0=12h, 1=locale, 2=24h.</label>
+      <default>1</default>
+    </entry>
+    <entry name="useSystemFont" type="Bool">
+      <label>Use the Plasma panel font instead of a custom font.</label>
+      <default>true</default>
+    </entry>
+    <entry name="fontFamily" type="String">
+      <label>Custom font family.</label>
+      <default></default>
+    </entry>
+    <entry name="fontSize" type="Int">
+      <label>Custom font size in points. Ignored when useSystemFont is true.</label>
+      <default>10</default>
+    </entry>
+    <entry name="boldText" type="Bool">
+      <label>Use bold text.</label>
+      <default>false</default>
+    </entry>
+  </group>
+</kcfg>

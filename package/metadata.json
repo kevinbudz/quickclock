@@ -1,0 +1,22 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Kevin Budz"
+            }
+        ],
+        "BugReportUrl": "https://github.com/kevinbudz/quickclock/issues",
+        "Category": "Date and Time",
+        "Description": "Fully customizable panel clock with BBCode support.",
+        "EnabledByDefault": true,
+        "Icon": "preferences-system-time",
+        "Id": "com.kevin.plasma.quickclock",
+        "License": "GPL-2.0-or-later",
+        "Name": "quickclock",
+        "Version": "2.0",
+        "Website": "https://github.com/kevinbudz/quickclock/"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml"
+}
