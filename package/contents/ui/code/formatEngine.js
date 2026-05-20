@@ -47,26 +47,6 @@ function tokens(date, use24hFormat, locale, shortFormat, longFormat) {
     };
 }
 
-function shieldBbcodeTags(template) {
-    const segments = [];
-    let index = 0;
-    const text = template.replace(/\[[^\]]*\]/g, function (match) {
-        const placeholder = "\uE010" + index + "\uE011";
-        segments.push({ placeholder: placeholder, value: match });
-        index++;
-        return placeholder;
-    });
-    return { text: text, segments: segments };
-}
-
-function unshieldBbcodeTags(text, segments) {
-    let result = text;
-    for (let i = 0; i < segments.length; i++) {
-        result = result.split(segments[i].placeholder).join(segments[i].value);
-    }
-    return result;
-}
-
 function expand(template, date, use24hFormat, locale, shortFormat, longFormat) {
     if (!template) {
         return "";
@@ -75,8 +55,6 @@ function expand(template, date, use24hFormat, locale, shortFormat, longFormat) {
     if (!date || !locale) {
         return template;
     }
-
-    const shielded = shieldBbcodeTags(template);
 
     const map = tokens(date, use24hFormat, locale, shortFormat, longFormat);
     const keys = Object.keys(map).sort(function(a, b) {
@@ -87,7 +65,7 @@ function expand(template, date, use24hFormat, locale, shortFormat, longFormat) {
     });
 
     const placeholders = [];
-    let result = shielded.text;
+    let result = template;
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const placeholder = "\uE000" + i + "\uE001";
@@ -97,5 +75,5 @@ function expand(template, date, use24hFormat, locale, shortFormat, longFormat) {
     for (let j = 0; j < placeholders.length; j++) {
         result = result.split(placeholders[j].placeholder).join(placeholders[j].value);
     }
-    return unshieldBbcodeTags(result, shielded.segments);
+    return result;
 }

@@ -15,7 +15,6 @@ KCMUtils.SimpleKCM {
         { token: "[s]", description: i18n("Strikethrough text") },
         { token: "[size=12]", description: i18n("Font size in pt, or a multiple ≤ 4 of the base size (e.g. 2 doubles it)") },
         { token: "[color=#fff]", description: i18n("Text color (hex or CSS color name)") },
-        { token: "[weight=Bold]", description: i18n("Font weight (name or 100–1000); falls back to Regular if unavailable") },
         { token: "[center]", description: i18n("Centered block; put each line on its own row") },
         { token: "[left]", description: i18n("Left-aligned block") },
         { token: "[right]", description: i18n("Right-aligned block") }
@@ -107,12 +106,8 @@ KCMUtils.SimpleKCM {
 
         implicitWidth: tokenColumnWidth + Kirigami.Units.gridUnit * 18
         implicitHeight: tableBody.implicitHeight
-        color: Kirigami.Theme.alternateBackgroundColor !== undefined
-            ? Kirigami.Theme.alternateBackgroundColor
-            : Kirigami.Theme.backgroundColor
-        border.color: Kirigami.Theme.separatorColor !== undefined
-            ? Kirigami.Theme.separatorColor
-            : Kirigami.Theme.disabledTextColor
+        color: Kirigami.Theme.alternateBackgroundColor
+        border.color: Kirigami.Theme.separatorColor
         radius: Kirigami.Units.cornerRadius
 
         ColumnLayout {
@@ -161,9 +156,7 @@ KCMUtils.SimpleKCM {
 
                         QQC2.Label {
                             text: modelData.token
-                            font.family: Kirigami.Theme.fixedFont && Kirigami.Theme.fixedFont.family
-                                ? Kirigami.Theme.fixedFont.family
-                                : "monospace"
+                            font.family: Kirigami.Theme.fixedFont.family
                             Layout.preferredWidth: table.tokenColumnWidth
                             Layout.maximumWidth: table.tokenColumnWidth
                             Layout.leftMargin: table.cellHMargin

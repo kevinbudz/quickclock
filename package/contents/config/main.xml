@@ -38,20 +38,8 @@
       <label>Custom font size in points. Ignored when useSystemFont is true.</label>
       <default>10</default>
     </entry>
-    <entry name="fontStyle" type="String">
-      <label>Custom font style (e.g. Regular, Bold).</label>
-      <default>Regular</default>
-    </entry>
-    <entry name="italicText" type="Bool">
-      <label>Use italic text.</label>
-      <default>false</default>
-    </entry>
-    <entry name="strikeoutText" type="Bool">
-      <label>Use strikeout text.</label>
-      <default>false</default>
-    </entry>
     <entry name="boldText" type="Bool">
-      <label>Deprecated; migrated to fontStyle on load.</label>
+      <label>Use bold text.</label>
       <default>false</default>
     </entry>
   </group>

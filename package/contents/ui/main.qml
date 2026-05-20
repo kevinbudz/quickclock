@@ -6,7 +6,6 @@ import org.kde.kirigami as Kirigami
 
 import "code/formatEngine.js" as FormatEngine
 import "code/bbcode.js" as BBCode
-import "code/fontHelpers.js" as FontHelpers
 import "code/presets.js" as Presets
 
 PlasmoidItem {
@@ -36,19 +35,17 @@ PlasmoidItem {
         ? Kirigami.Theme.defaultFont.pointSize
         : (Plasmoid.configuration.fontSize > 0 ? Plasmoid.configuration.fontSize : 10)
 
-    readonly property font labelFont: usingSystemFont
-        ? Kirigami.Theme.defaultFont
-        : FontHelpers.resolveFont(
-            Plasmoid.configuration.fontFamily || Kirigami.Theme.defaultFont.family,
-            Plasmoid.configuration.fontStyle || "Regular",
-            baseFontSize,
-            Plasmoid.configuration.italicText,
-            Plasmoid.configuration.strikeoutText
-        )
-
     readonly property bool usesBbcode: BBCode.hasBbcodeMarkup(activeTemplate)
 
-    readonly property string richHtml: BBCode.toHtml(expandedText, baseFontSize, labelFont.family)
+    readonly property string richHtml: BBCode.toHtml(expandedText, baseFontSize)
+
+    readonly property font labelFont: usingSystemFont
+        ? Kirigami.Theme.defaultFont
+        : Qt.font({
+            family: Plasmoid.configuration.fontFamily || Kirigami.Theme.defaultFont.family,
+            pointSize: baseFontSize,
+            bold: Plasmoid.configuration.boldText
+        })
 
     fullRepresentation: Item {
         readonly property real minWidth: Math.max(clockText.contentWidth, Kirigami.Units.gridUnit * 3)
