@@ -11,10 +11,10 @@
         "Description": "Fully customizable panel clock with BBCode support.",
         "EnabledByDefault": true,
         "Icon": "preferences-system-time",
-        "Id": "com.kevin.plasma.quickclock",
+        "Id": "io.github.kevinbudz.quickclock",
         "License": "GPL-2.0-or-later",
         "Name": "quickclock",
-        "Version": "2.0",
+        "Version": "1.0",
         "Website": "https://github.com/kevinbudz/quickclock/"
     },
     "X-Plasma-API-Minimum-Version": "6.0",

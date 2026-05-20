@@ -1,4 +1,5 @@
 .pragma library
+.import "fontHelpers.js" as FontHelpers
 
 var BLOCK_STYLE = "margin:0;padding:0;line-height:100%;white-space:pre-wrap";
 
@@ -20,7 +21,7 @@ function hasBbcodeMarkup(source) {
     if (!source) {
         return false;
     }
-    return /\[(?:\/)?(?:b|i|u|s|center|left|right)\]|\[(?:\/)?(?:size|color)=/i.test(source);
+    return /\[(?:\/)?(?:b|i|u|s|center|left|right)\]|\[(?:\/)?(?:size|color|weight)=/i.test(source);
 }
 
 function parseSize(value, baseFontPt) {
@@ -63,12 +64,13 @@ function balanceSpans(html) {
     return result;
 }
 
-function toHtml(source, baseFontPt) {
+function toHtml(source, baseFontPt, fontFamily) {
     if (!source) {
         return "";
     }
 
     const base = baseFontPt > 0 ? baseFontPt : 10;
+    const family = (fontFamily || "").trim();
     let html = preserveConsecutiveSpaces(escapeHtml(source));
 
     html = html.replace(/\[\/(center|left|right)\]\[size=([^\]]+)\]/gi, "[/$1][/size]");
@@ -92,6 +94,11 @@ function toHtml(source, baseFontPt) {
     html = html.replace(/\[color=([^\]]+)\]/gi, function(_, color) {
         return "<span style=\"color:" + color.trim() + ";\">";
     }).replace(/\[\/color\]/gi, "</span>");
+
+    html = html.replace(/\[weight=([^\]]+)\]/gi, function(_, weight) {
+        const resolved = FontHelpers.resolveWeightForFamily(family, base, weight);
+        return "<span style=\"" + FontHelpers.weightSpanStyle(resolved) + ";\">";
+    }).replace(/\[\/weight\]/gi, "</span>");
 
     html = html.replace(/\[center\]([\s\S]*?)\[\/center\]/gi, function(_, content) {
         return wrapAlignBlock("p", "center", content);

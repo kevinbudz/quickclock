@@ -20,13 +20,18 @@ KCMUtils.SimpleKCM {
     property string cfg_lastPresetFormat: plasmaTemplate
     property alias cfg_use24hFormat: use24hFormat.currentIndex
     property alias cfg_useSystemFont: useSystemFont.checked
-    property alias cfg_fontFamily: fontFamilyField.text
-    property alias cfg_fontSize: fontSizeSpin.value
-    property alias cfg_boldText: boldText.checked
+    property alias cfg_fontFamily: fontRow.fontFamily
+    property alias cfg_fontSize: fontRow.fontSize
+    property alias cfg_fontStyle: fontRow.fontStyle
+    property alias cfg_italicText: fontRow.italicText
+    property alias cfg_strikeoutText: fontRow.strikeoutText
+    property alias cfg_boldText: fontRow.boldText
 
-    readonly property int previewFontSize: useSystemFont.checked
-        ? Kirigami.Theme.defaultFont.pointSize
-        : fontSizeSpin.value
+    readonly property font previewLabelFont: useSystemFont.checked
+        ? Kirigami.Theme.defaultFont
+        : fontRow.currentFont
+
+    readonly property int previewFontSize: previewLabelFont.pointSize
 
     readonly property string previewTemplate: cfg_formatPreset === "custom"
         ? customFormatField.text
@@ -43,7 +48,7 @@ KCMUtils.SimpleKCM {
         Locale.LongFormat
     )
 
-    readonly property string previewHtml: BBCode.toHtml(previewExpanded, previewFontSize)
+    readonly property string previewHtml: BBCode.toHtml(previewExpanded, previewFontSize, previewLabelFont.family)
 
     function applyPresetSelection(presetId) {
         if (presetId === "custom") {
@@ -110,6 +115,7 @@ KCMUtils.SimpleKCM {
             plainText: appearancePage.previewExpanded
             richHtml: appearancePage.previewHtml
             richMode: appearancePage.previewUsesBbcode
+            font: appearancePage.previewLabelFont
         }
 
         QQC2.ComboBox {
@@ -132,25 +138,8 @@ KCMUtils.SimpleKCM {
             text: i18n("Use system panel font")
         }
 
-        QQC2.TextField {
-            id: fontFamilyField
-            Kirigami.FormData.label: i18n("Font family:")
-            enabled: !useSystemFont.checked
-            placeholderText: i18n("Leave empty for default")
-        }
-
-        QQC2.SpinBox {
-            id: fontSizeSpin
-            Kirigami.FormData.label: i18n("Font size:")
-            enabled: !useSystemFont.checked
-            from: 6
-            to: 48
-        }
-
-        QQC2.CheckBox {
-            id: boldText
-            Kirigami.FormData.label: i18n("Style:")
-            text: i18n("Bold")
+        FontSettingsRow {
+            id: fontRow
             enabled: !useSystemFont.checked
         }
     }
