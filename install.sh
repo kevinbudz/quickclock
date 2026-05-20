@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Install the quickclock Plasma panel applet for the current user.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"

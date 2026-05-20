@@ -22,6 +22,22 @@
       <label>Template copied into custom when switching to the custom preset.</label>
       <default>[center]hh:m AP&#10;M/d/yyyy[/center]</default>
     </entry>
+    <entry name="tooltipPreset" type="String">
+      <label>Active tooltip preset: digitalClock, longDate, or custom.</label>
+      <default>digitalClock</default>
+    </entry>
+    <entry name="customTooltipFormat" type="String">
+      <label>Custom tooltip format with date/time tokens.</label>
+      <default>dddd, MMMM d, yyyy&#10;tz: h:mm:ss AP</default>
+    </entry>
+    <entry name="customTooltipEdited" type="Bool">
+      <label>Whether the user has edited the custom tooltip since the last preset switch.</label>
+      <default>false</default>
+    </entry>
+    <entry name="lastPresetTooltipFormat" type="String">
+      <label>Tooltip template copied into custom when switching to the custom preset.</label>
+      <default>dddd, MMMM d, yyyy&#10;tz: h:mm:ss AP</default>
+    </entry>
     <entry name="use24hFormat" type="UInt">
       <label>12-hour, locale default, or 24-hour time. 0=12h, 1=locale, 2=24h.</label>
       <default>1</default>

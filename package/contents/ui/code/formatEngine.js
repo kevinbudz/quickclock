@@ -12,6 +12,7 @@ function hour12(hours24) {
 function tokens(date, use24hFormat, locale, shortFormat, longFormat) {
     const hours24 = date.getHours();
     const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const year = date.getFullYear();
@@ -42,6 +43,7 @@ function tokens(date, use24hFormat, locale, shortFormat, longFormat) {
         "h": "" + (show24h ? hours24 : h12),
         "mm": pad2(minutes),
         "m": "" + minutes,
+        "ss": pad2(seconds),
         "AP": ap,
         "ap": ap.toLowerCase()
     };
@@ -67,7 +69,7 @@ function unshieldBbcodeTags(text, segments) {
     return result;
 }
 
-function expand(template, date, use24hFormat, locale, shortFormat, longFormat) {
+function expand(template, date, use24hFormat, locale, shortFormat, longFormat, extraTokens) {
     if (!template) {
         return "";
     }
@@ -79,6 +81,12 @@ function expand(template, date, use24hFormat, locale, shortFormat, longFormat) {
     const shielded = shieldBbcodeTags(template);
 
     const map = tokens(date, use24hFormat, locale, shortFormat, longFormat);
+    if (extraTokens) {
+        const extraKeys = Object.keys(extraTokens);
+        for (let i = 0; i < extraKeys.length; i++) {
+            map[extraKeys[i]] = extraTokens[extraKeys[i]];
+        }
+    }
     const keys = Object.keys(map).sort(function(a, b) {
         if (b.length !== a.length) {
             return b.length - a.length;

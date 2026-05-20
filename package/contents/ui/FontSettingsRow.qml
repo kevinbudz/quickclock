@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls as QQC2
-import QtQuick.Dialogs as Dialogs
 import QtQuick.Layouts
+import Qt.labs.platform as Platform
 
 import org.kde.kirigami as Kirigami
 
@@ -17,7 +17,6 @@ ColumnLayout {
     property string fontStyle: "Regular"
     property bool italicText: false
     property bool strikeoutText: false
-    /** @deprecated Kept for config migration from boldText. */
     property bool boldText: false
 
     readonly property font currentFont: FontHelpers.resolveFont(
@@ -50,7 +49,7 @@ ColumnLayout {
     }
 
     function openFontDialog() {
-        fontDialog.selectedFont = currentFont;
+        fontDialog.currentFont = currentFont;
         fontDialog.open();
     }
 
@@ -83,10 +82,13 @@ ColumnLayout {
         }
     }
 
-    Dialogs.FontDialog {
+    // Native widget dialog (KDE-styled on Plasma); QtQuick.Dialogs.FontDialog is QML-only.
+    Platform.FontDialog {
         id: fontDialog
 
         title: i18nc("@title:window", "Choose Font")
-        onAccepted: root.applyFont(selectedFont)
+        modality: Qt.WindowModal
+        parentWindow: root.Window.window
+        onAccepted: root.applyFont(font)
     }
 }
